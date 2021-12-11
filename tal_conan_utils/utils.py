@@ -16,7 +16,7 @@ def get_version():
 def make_conan(lib_name, requirements):
     class TalConan(ConanFile):
         name = f"tal.{lib_name}"
-        version = get_version()
+ #       version = get_version()
         license = ""
         author = ""
         url = f"https://github.com/tal-systems/tal.{lib_name}"
@@ -55,10 +55,11 @@ def make_conan(lib_name, requirements):
     return TalConan
 
 
-def make_test_conan(lib_name):
+def make_test_conan(lib_name, requirements=[]):
     class TalTestConan(ConanFile):
         settings = "os", "compiler", "build_type", "arch"
         generators = "cmake"
+        requires = requirements
 
         def build(self):
             cmake = CMake(self)
