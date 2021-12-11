@@ -48,7 +48,7 @@ def make_conan(lib_name, requirements):
             cmake.install()
 
         def layout(self):
-            self.cpp_info.requires = self.requires
+            self.cpp_info.requires = requirenments
             self.cpp.source.includedirs = ["lib/include"]
             self.cpp.build.libdirs = ["build/lib"]
             self.cpp.build.libs = [f"tal_{lib_name}"]
