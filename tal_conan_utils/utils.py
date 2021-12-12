@@ -22,7 +22,7 @@ def make_conan(lib_name, requirements):
                 del self.options.fPIC
 
         def _configure_cmake(self):
-            cmake = CMake(self)
+            cmake = CMake(self, generator=Ninja)
             cmake.configure(source_folder=f"tal.{lib_name}")
             return cmake
 
@@ -59,7 +59,7 @@ def make_test_conan(lib_name, requirements=[]):
         requires = requirements
 
         def build(self):
-            cmake = CMake(self)
+            cmake = CMake(self, generator=Ninja)
             cmake.configure()
             cmake.build()
 
