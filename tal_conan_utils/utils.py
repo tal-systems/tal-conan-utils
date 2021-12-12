@@ -22,7 +22,7 @@ def make_conan(lib_name, requirements):
                 del self.options.fPIC
 
         def _configure_cmake(self):
-            cmake = CMake(self, generator=Ninja)
+            cmake = CMake(self)
             cmake.configure(source_folder=f"tal.{lib_name}")
             return cmake
 
