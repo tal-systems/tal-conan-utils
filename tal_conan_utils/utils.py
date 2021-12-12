@@ -59,7 +59,7 @@ def make_test_conan(lib_name, requirements=[]):
         requires = requirements
 
         def build(self):
-            cmake = CMake(self, generator=Ninja)
+            cmake = CMake(self)
             cmake.configure()
             cmake.build()
 
