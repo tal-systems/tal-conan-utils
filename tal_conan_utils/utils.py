@@ -1,22 +1,12 @@
 from conans import ConanFile, CMake, tools
 import os
+import re
 
-
-def get_version():
-    git = tools.Git()
-    try:
-        tag = git.get_tag()
-        if tag:
-            return tag
-        return git.get_branch()
-    except:
-        return None
 
 
 def make_conan(lib_name, requirements):
     class TalConan(ConanFile):
         name = f"tal.{lib_name}"
- #       version = get_version()
         license = ""
         author = ""
         url = f"https://github.com/tal-systems/tal.{lib_name}"
@@ -37,7 +27,11 @@ def make_conan(lib_name, requirements):
             return cmake
 
         def source(self):
-            self.run(f"git clone --depth 1 --branch {self.version} git@github.com:tal-systems/tal.{lib_name}.git")
+            if re.match("^\d+\.\d+\.\d+$", self.version):
+                version = "v" + self.version
+            else:
+                version = self.version
+            self.run(f"git clone --depth 1 --branch {version} git@github.com:tal-systems/tal.{lib_name}.git")
 
         def build(self):
             cmake = self._configure_cmake()
